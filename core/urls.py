@@ -4,8 +4,9 @@ from core import views
 
 app_name = "core"
 urlpatterns = [
-    url(r"^$",views.IndexView.as_view(), name="index"),
-    # url(r"^detail/(?P<topic_id>\d+)/$",views. , name="detail"),
+    url(r"^$", views.IndexView.as_view(), name="index"),
+    url(r"^(?P<pk>\d+)/$", views.Topic_DetailView.as_view(), name="detail"),
+    #exp: /21/
 
 ]
 

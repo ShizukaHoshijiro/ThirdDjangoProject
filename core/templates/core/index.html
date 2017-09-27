@@ -6,8 +6,10 @@
 </head>
 <body>
     {% for object in object_list %}
-        <h2>{{ object.topic_title }}</h2>
+
+        <a href="{% url "core:detail" object.id %}"> <h2>{{ object.topic_title }}</h2> </a>
         <h3>{{ object.topic_description }}</h3>
+
     {% endfor %}
 </body>
 </html>
