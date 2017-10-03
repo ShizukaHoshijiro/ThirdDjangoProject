@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+    {% if messages %}
+
+    <div class="error_message">
+    {% for message in messages %}
+        "{{ message }}"
+    {% endfor %}
+    <a href="{% url "core:create" %}">Вернуться</a>
+    </div>
+
+    {% else %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+
+    {% endif %}
+
+</body>
+</html>
