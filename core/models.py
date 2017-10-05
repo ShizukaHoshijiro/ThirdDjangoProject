@@ -16,6 +16,10 @@ class Topic(models.Model):
     def __str__(self):
         return self.topic_title
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("core:detail", kwargs={"pk":str(self.id)})
+
     class Meta:
         # Сортировка по умолчанию, по дате("-" в начале означает обратный порядок) и по заголовку.
         ordering = ("-topic_pub_date","topic_title")

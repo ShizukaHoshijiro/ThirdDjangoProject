@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
 from core.models import Topic
 from django.contrib import messages
+from django.urls import reverse
 
 
 class IndexView(ListView):
@@ -28,5 +29,6 @@ class Topic_CreateView(CreateView):
         if request.user.is_authenticated:
             return super(Topic_CreateView, self).post(request, *args,**kwargs)
         else:
-            messages.add_message(request,messages.ERROR,"Вы не авторизованны.")
-            return super(Topic_CreateView, self).get(request,*args,**kwargs)
+            redirect_url = reverse("login")
+            redirect_url = redirect_url + "?next=" + request.path
+            return redirect(redirect_url)
