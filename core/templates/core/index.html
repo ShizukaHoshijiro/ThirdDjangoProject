@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
-<body>
+{% extends "core/patterns/parents/main.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
     {% for object in object_list %}
 
         <a href="{% url "core:detail" object.id %}"> <h2>{{ object.topic_title }}</h2> </a>
         <h3>{{ object.topic_description }}</h3>
 
     {% endfor %}
-</body>
-</html>
+
+{% endblock %}
+

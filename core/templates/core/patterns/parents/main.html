@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block main_head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}Forum{% endblock %}</title>
+    {% block default_stylesheet %} <link type="text/css" rel="stylesheet" href="{% static "core/main.css" %}"> {% endblock %}
+    {% block extra_head %}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+    <div class="main">
+    {% block main_body %}
+        <div class="header"> {% block header %}{% include "core/patterns/includes/header.html" %}{% endblock %} </div>
+        {#  <div class="right_side_bar">{% block right_side_bar %}{% include "core/patterns/includes/right_side_bar.html" %}{% endblock %}</div>  #}
+        <div class="content"> {% block content %}{% endblock %} </div>
+        <div class="footer"> {% block footer %}{% include "core/patterns/includes/footer.html" %}{% endblock %} </div>
+    {% endblock %}
+    </div>
+</body>
+</html>
