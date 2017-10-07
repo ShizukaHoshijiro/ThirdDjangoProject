@@ -8,6 +8,21 @@
     padding-left:4px;
 }
 
+
+.header .search_field {
+    width:auto;
+    display: inline-block;
+}
+
+#id_sort_field {
+    width:26%;
+}
+
+#id_search_field {
+    width:26%;
+    margin-left: 5%;
+}
+
 .topic:hover {
     background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(240,240,240,1) 100%);
     border-left-color: #4b4b4b;

@@ -1,0 +1,12 @@
+{% extends "core/patterns/includes/header.html" %}
+
+{% block search_field %}
+    <div class="search_field">
+    <form action="">
+        {% for field in form %}
+            {{ field }}
+        {% endfor %}
+        <input type="submit" value="Принять">
+        </form>
+    </div>
+{% endblock %}

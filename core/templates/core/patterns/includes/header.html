@@ -1,8 +1,10 @@
 
+
 <div class="links">
     <a href="{% url "core:index" %}">Главная</a>
     <a href="{% url "core:create" %}">Создать тему</a>
 </div>
+{% block search_field %}{% endblock %}
 <div class="user_info">
     {% if user.is_authenticated %}
         <div class="user_is_login">

@@ -3,13 +3,9 @@
 
 {% block title %}Главная{% endblock %}
 {% block extra_head %}<link type="text/css" rel="stylesheet" href="{% static "core/index.css" %}">{% endblock %}
+{% block header %}{% include "core/patterns/includes/header_with_field.html" %}{% endblock %}
 
 {% block content %}
-
-    <form action="" method="get">
-    {{ form }}
-    <input type="submit" value="Принять">
-    </form>
 
     {% for object in object_list %}
 
