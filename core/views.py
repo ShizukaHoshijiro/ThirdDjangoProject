@@ -1,9 +1,12 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic.edit import FormView
 from core.models import Topic
 from django.contrib import messages
 from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate,login
 
 
 class IndexView(ListView):
@@ -32,3 +35,18 @@ class Topic_CreateView(CreateView):
             redirect_url = reverse("login")
             redirect_url = redirect_url + "?next=" + request.path
             return redirect(redirect_url)
+
+class UserRegisterView(FormView):
+    form_class = UserCreationForm
+    success_url = reverse("index")
+    template_name = "core/register.html"
+
+    def get_success_url(self):
+        return self.request.GET.get("next",reverse("index"))
+
+    def form_valid(self, form):
+        super(UserRegisterView, self).form_valid(form)
+        user = authenticate(username=form.cleaned_data["username"],password=form.cleaned_data["password1"])
+        if user is not None:
+            login(self.request,user)
+

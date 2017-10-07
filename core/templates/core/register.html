@@ -1,0 +1,15 @@
+{% extends "core/patterns/parents/main.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <div class="registration_form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="registration_form_username">Логин: {{ form.username }}</div>
+            <div class="registration_form_password">Пароль: {{ form.password1 }}</div>    {# PASSWORD #}
+            <div class="registration_form_confirm_password">Подтверждение пароля: {{ form.password2 }}</div>    {# CONFIRM_PASSWORD #}
+            <input type="submit" value="Регистрация">
+        </form>
+    </div>
+{% endblock %}
