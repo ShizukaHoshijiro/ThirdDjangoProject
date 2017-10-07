@@ -21,17 +21,17 @@ class IndexView(ListView):
 
     def get_queryset(self):
 
-        sort_field = self.form.cleaned_data.get("sort_field","-topic_pub_date")
+        sort_field = self.form.cleaned_data.get("sort_field","-pub_date")
         search_field = self.form.cleaned_data.get("search_field",None)
         # метод get возвращает чначение с указанным ключём или второй аргумент если он равен None
 
         if sort_field == "":
-            sort_field = "-topic_pub_date"
+            sort_field = "-pub_date"
         if search_field == "":
             search_field = None
 
         if search_field is not None:
-            self.queryset = Topic.objects.order_by(sort_field).filter(topic_title__icontains=search_field)
+            self.queryset = Topic.objects.order_by(sort_field).filter(title__icontains=search_field)
         else:
             self.queryset = Topic.objects.order_by(sort_field)
         return self.queryset[0:40]
@@ -50,10 +50,10 @@ class Topic_DetailView(DetailView):
 class Topic_CreateView(CreateView):
     model = Topic
     template_name = "core/create.html"
-    fields = ("topic_title","topic_description")
+    fields = ("title","description")
 
     def form_valid(self, form):
-        form.instance.topic_author = self.request.user
+        form.instance.author = self.request.user
         return super(Topic_CreateView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
