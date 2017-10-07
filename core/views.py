@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormView
 from core.models import Topic
@@ -38,15 +38,16 @@ class Topic_CreateView(CreateView):
 
 class UserRegisterView(FormView):
     form_class = UserCreationForm
-    success_url = reverse("index")
     template_name = "core/register.html"
 
     def get_success_url(self):
-        return self.request.GET.get("next",reverse("index"))
+        return self.request.GET.get("next",reverse("core:index"))
 
     def form_valid(self, form):
         super(UserRegisterView, self).form_valid(form)
+        form.save()
         user = authenticate(username=form.cleaned_data["username"],password=form.cleaned_data["password1"])
         if user is not None:
             login(self.request,user)
+        return HttpResponseRedirect(self.get_success_url())
 
