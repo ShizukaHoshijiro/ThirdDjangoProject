@@ -7,11 +7,39 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login
+from core.forms import IndexPageForm
 
 
 class IndexView(ListView):
     model = Topic
     template_name = "core/index.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.form = IndexPageForm(request.GET)
+        self.form.is_valid()
+        return super(IndexView, self).dispatch(request,*args,**kwargs)
+
+    def get_queryset(self):
+
+        sort_field = self.form.cleaned_data.get("sort_field","-topic_pub_date")
+        search_field = self.form.cleaned_data.get("search_field",None)
+        # метод get возвращает чначение с указанным ключём или второй аргумент если он равен None
+
+        if sort_field == "":
+            sort_field = "-topic_pub_date"
+        if search_field == "":
+            search_field = None
+
+        if search_field is not None:
+            self.queryset = Topic.objects.order_by(sort_field).filter(topic_title__icontains=search_field)
+        else:
+            self.queryset = Topic.objects.order_by(sort_field)
+        return self.queryset[0:40]
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context["form"] = self.form
+        return context
 
 class Topic_DetailView(DetailView):
     model = Topic

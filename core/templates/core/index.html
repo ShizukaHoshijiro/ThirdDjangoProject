@@ -6,6 +6,11 @@
 
 {% block content %}
 
+    <form action="" method="get">
+    {{ form }}
+    <input type="submit" value="Принять">
+    </form>
+
     {% for object in object_list %}
 
              <a href="{% url "core:detail" object.id %}" id="{{ object.id }}"><div class="topic"> {{ object.topic_title }} </div></a>
