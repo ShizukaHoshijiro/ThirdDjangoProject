@@ -1,13 +1,14 @@
 {% extends "core/patterns/parents/main.html" %}
+{% load static %}
 
 {% block title %}Главная{% endblock %}
+{% block extra_head %}<link type="text/css" rel="stylesheet" href="{% static "core/index.css" %}">{% endblock %}
 
 {% block content %}
 
     {% for object in object_list %}
 
-        <a href="{% url "core:detail" object.id %}"> <h2>{{ object.topic_title }}</h2> </a>
-        <h3>{{ object.topic_description }}</h3>
+             <a href="{% url "core:detail" object.id %}" id="{{ object.id }}"><div class="topic"> {{ object.topic_title }} </div></a>
 
     {% endfor %}
 

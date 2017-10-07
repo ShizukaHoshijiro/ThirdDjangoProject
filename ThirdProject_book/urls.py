@@ -24,5 +24,5 @@ urlpatterns = [
     url(r"^", include("core.urls")),
     url(r"^login/$", login, {"template_name":"core/login.html"}, name="login"),
     url(r"^logout/$", logout, {"template_name":"core/logout.html"}, name="logout"),
-    url(r"^register/$", UserRegisterView.as_view(), name="registration"),
+    url(r"^register/$", UserRegisterView.as_view(), name="register"),
 ]

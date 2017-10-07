@@ -41,13 +41,18 @@ class UserRegisterView(FormView):
     template_name = "core/register.html"
 
     def get_success_url(self):
-        return self.request.GET.get("next",reverse("core:index"))
+        success_url = self.request.GET.get("next",reverse("core:index"))
+        if success_url == reverse("login") or success_url == reverse("logout") or success_url == reverse("register"):
+            success_url = reverse("core:index")
+        return success_url
 
     def form_valid(self, form):
         super(UserRegisterView, self).form_valid(form)
         form.save()
+
         user = authenticate(username=form.cleaned_data["username"],password=form.cleaned_data["password1"])
         if user is not None:
             login(self.request,user)
+
         return HttpResponseRedirect(self.get_success_url())
 
