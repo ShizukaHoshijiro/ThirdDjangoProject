@@ -7,7 +7,8 @@ urlpatterns = [
     url(r"^$", views.IndexView.as_view(), name="index"),
     url(r"^(?P<pk>\d+)/$", views.Topic_DetailView.as_view(), name="detail"),
     # "\d" - цифры "+" - один или больше  #exp: /21/
-    url(r"^create/", views.Topic_CreateView.as_view(), name="create")
+    url(r"^create/", views.Topic_CreateView.as_view(), name="create"),
+    url(r"^add_comment/",views.add_comment, name="add_comment"),
 ]
 
 #url(r"^list/(?P<id>/d+)/$", )
