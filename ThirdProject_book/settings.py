@@ -125,3 +125,6 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'core/templates'),)
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 LOGIN_REDIRECT_URL = "core:index"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/media/"
