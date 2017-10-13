@@ -26,5 +26,5 @@ urlpatterns = [
     url(r"^login/$", login, {"template_name":"core/login.html"}, name="login"),
     url(r"^logout/$", logout, {"template_name":"core/logout.html"}, name="logout"),
     url(r"^register/$", UserRegisterView.as_view(), name="register"),
-    url(r"^add_comment/$", add_comment, name="add_comment"),
+    url(r"^comments/", include("comments.urls")),
 ]

@@ -17,5 +17,8 @@ class Comment(models.Model):
     object = GenericForeignKey("model_type","object_id")
     # "Соеденяет" model_type и object_id для прямого доступа к объекту
 
+    # comments = GenericRelation(Comment, related_query_name="comment", content_type_field="model_type")
+
     class Meta:
         ordering = ("-pub_date",)
+

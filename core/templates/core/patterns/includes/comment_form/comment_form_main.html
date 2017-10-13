@@ -1,0 +1,10 @@
+
+<form action="{% url "comments:add_comment" %}" method="post">
+    <input name="object_id" type="hidden" value="{% block object_id %}{{ object.id }}{% endblock %}">
+    <input name="model_id" type="hidden" value="{% block model_id %}7{% endblock %}"> {# Имя модели в НИЖНЕМ! регистре. #}
+    <input name="next" type="hidden" value="{% block next %}{{ request.path }}{% endblock %}">
+
+    {% csrf_token %}
+    {{ form.content }}
+    <input type="submit">
+</form>

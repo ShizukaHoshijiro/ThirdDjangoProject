@@ -1,0 +1,9 @@
+
+        <div class="comment">
+        {{ request.user }}
+        <h3>{{ comment.content }}</h3>
+        {{ comment.pub_date }}
+        </div>
+        {% include "core/patterns/includes/comment_form/comment_form_for_comment.html" %}
+
+        {% if  %}

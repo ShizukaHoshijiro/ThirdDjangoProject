@@ -5,6 +5,8 @@
     {% block main_head %}
     <meta charset="UTF-8">
     <title>{% block title %}Forum{% endblock %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "comments/render_comment.js" %}"></script>
     {% block default_stylesheet %} <link type="text/css" rel="stylesheet" href="{% static "core/main.css" %}"> {% endblock %}
     {% block extra_head %}{% endblock %}
     {% endblock %}

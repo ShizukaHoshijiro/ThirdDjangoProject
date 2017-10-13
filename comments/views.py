@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from core.models import Topic,Comment
 from django.contrib.contenttypes.models import ContentType,ContentTypeManager
-from django.http import Http404
+from django.http import Http404,JsonResponse
 from core.forms import CommentForm
 from django.contrib.auth.decorators import login_required
 
@@ -12,13 +12,12 @@ def add_comment(request):
     form.is_valid()
     comment_content = form.cleaned_data.get("content",None)
 
-    model_name = request.POST.get("model_name",None) # Имя модели в, обязательно, нижнем регистре.
-    object_id = request.POST.get("object_id",None)
-    app_label = request.POST.get("app_label", "core")
+    model_id = request.POST.get("model_id",None) # Id модели
+    object_id = request.POST.get("object_id",None) # id(pk) отдельной модели
 
-    if model_name and object_id and comment_content:
+    if model_id and object_id and comment_content:
         # Получает экземпляр ContentType для текущей модели
-        content_type_for_model = ContentType.objects.get(app_label=app_label,model=model_name)
+        content_type_for_model = ContentType.objects.get(id=model_id)
         # app_label - название/имя приложения; model - имя модели.
         # Для большей информации - https://djbook.ru/rel1.9/ref/contrib/contenttypes.html
 
@@ -40,3 +39,13 @@ def add_comment(request):
         raise Http404
 
     return HttpResponseRedirect(request.POST.get("next","/"))
+
+def get_comment(request):
+    model_id = request.POST.get("model_id",None) # Id модели
+    object_id = request.POST.get("object_id",None) # id(pk) отдельной модели
+
+    if model_id and object_id:
+        comments_for_this_object = Comment.objects.get(model_type_id=model_id,object_id=object_id)
+        return JsonResponse(comments_for_this_object)
+    else:
+        return "Not all parameters"

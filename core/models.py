@@ -31,3 +31,4 @@ class Topic(models.Model):
     class Meta:
         # Сортировка по умолчанию, по дате("-" в начале означает обратный порядок) и по заголовку.
         ordering = ("-pub_date","title")
+
