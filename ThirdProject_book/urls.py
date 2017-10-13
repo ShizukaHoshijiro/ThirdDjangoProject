@@ -18,11 +18,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login,logout
 from core.views import UserRegisterView
+from comments.views import add_comment
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r"^", include("core.urls")),
+    url(r'^admin/', admin.site.urls),
     url(r"^login/$", login, {"template_name":"core/login.html"}, name="login"),
     url(r"^logout/$", logout, {"template_name":"core/logout.html"}, name="logout"),
     url(r"^register/$", UserRegisterView.as_view(), name="register"),
+    url(r"^add_comment/$", add_comment, name="add_comment"),
 ]
