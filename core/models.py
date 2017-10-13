@@ -17,6 +17,10 @@ class Comment(models.Model):
     object = GenericForeignKey("model_type","object_id")
     # "Соеденяет" model_type и object_id для прямого доступа к объекту
 
+    class Meta:
+        ordering = ("-pub_date",)
+
+
 class Topic(models.Model):
     title = models.CharField(max_length=40)
     description = models.TextField()

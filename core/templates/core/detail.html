@@ -9,11 +9,8 @@
     <h3>{{ object.author }}</h3>
     <h3>{{ object.pub_date }}</h3>
     <br>
-    {% for comment in object.comments.all %}
-        <div class="comment">{{ comment.content }}</div>
-    {% endfor %}
 
-    <form action="{% url "core:add_comment" %}" method="post">
+     <form action="{% url "core:add_comment" %}" method="post">
         <input name="object_id" type="hidden" value="{{ object.id }}">
         <input name="model_name" type="hidden" value="topic"> {# Имя модели в НИЖНЕМ! регистре. #}
         <input name="next" type="hidden" value="{{ request.path }}">
@@ -21,9 +18,18 @@
         {{ form }}
 
         <input type="submit">
-
         {% csrf_token %}
     </form>
+
+    {% for comment in object.comments.all %}
+        <div class="comment">
+        {{ request.user }}
+        <h3>{{ comment.content }}</h3>
+        {{ comment.pub_date }}
+        </div>
+        <br>
+    {% endfor %}
+
 
 {% endblock %}
 
