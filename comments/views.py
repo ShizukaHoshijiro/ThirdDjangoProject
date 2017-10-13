@@ -40,12 +40,18 @@ def add_comment(request):
 
     return HttpResponseRedirect(request.POST.get("next","/"))
 
-def get_comment(request):
-    model_id = request.POST.get("model_id",None) # Id модели
-    object_id = request.POST.get("object_id",None) # id(pk) отдельной модели
+def get_comment(request, model_id, object_id):
+    # model_id = request.POST.get("model_id",None) # Id модели
+    # object_id = request.POST.get("object_id",None) # id(pk) отдельной модели
+    # OLD
 
     if model_id and object_id:
-        comments_for_this_object = Comment.objects.get(model_type_id=model_id,object_id=object_id)
-        return JsonResponse(comments_for_this_object)
+        comments_for_this_object = Comment.objects.filter(model_type_id=model_id,object_id=object_id)
+        comment_dict = {"debugg": "lal"}
+        for comment in comments_for_this_object:
+            i = 0
+            comment_dict[i] = dict(comment)
+            i = i + 1
+        return JsonResponse(comment_dict, safe=False)
     else:
         return "Not all parameters"
