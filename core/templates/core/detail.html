@@ -10,7 +10,7 @@
     <h3>{{ object.pub_date }}</h3>
     <br>
 
-     <form action="{% url "core:add_comment" %}" method="post">
+     <form action="{% url "comment:add_comment" %}" method="post">
         <input name="object_id" type="hidden" value="{{ object.id }}">
         <input name="model_name" type="hidden" value="topic"> {# Имя модели в НИЖНЕМ! регистре. #}
         <input name="next" type="hidden" value="{{ request.path }}">
