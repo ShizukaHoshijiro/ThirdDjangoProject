@@ -2,9 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db.models import PROTECT,CASCADE
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
 from comment_app.models import Comment
-
+from django.contrib.contenttypes.fields import GenericRelation
 
 class Topic(models.Model):
     title = models.CharField(max_length=40)
@@ -18,7 +17,7 @@ class Topic(models.Model):
 
     # Позволяет обращатся к списку привязаных Comment'ов через comment_app
     # content_type_field="model_type" - имя поля, видимо
-    #### comment_app = GenericRelation(Comment, related_query_name="comment_app", content_type_field="model_type")
+    comments = GenericRelation(Comment, related_query_name="comment_app", content_type_field="model_type")
 
     # Возвращает заголовок как текстовое преобразование/представление.
     def __str__(self):

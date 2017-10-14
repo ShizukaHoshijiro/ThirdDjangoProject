@@ -6,7 +6,7 @@ from comment_app.models import Comment
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login
-from comment_app.forms import CommentForm
+from comment_app.forms import AddingCommentForm
 from django.contrib.contenttypes.models import ContentType,ContentTypeManager
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def add_comment(request):
 
-    form = CommentForm(request.POST)
+    form = AddingCommentForm(request.POST)
     form.is_valid()
     comment_content = form.cleaned_data.get("content",None)
 

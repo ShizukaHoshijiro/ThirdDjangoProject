@@ -10,6 +10,7 @@ from core.forms import IndexPageForm
 from django.contrib.contenttypes.models import ContentType,ContentTypeManager
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from comment_app.forms import AddingCommentForm
 
 class IndexView(ListView):
     model = Topic
@@ -48,7 +49,7 @@ class Topic_DetailView(DetailView):
     # pk_url_kwarg = "topic_id" ---deleted
     # Определяет под каким именем будет извлечён индетификатор объекта, из regex или GET запроса.
     def get(self, request, *args, **kwargs):
-        self.form = CommentForm
+        self.form = AddingCommentForm
         return super(Topic_DetailView, self).get(request,*args,**kwargs)
     def get_context_data(self, **kwargs):
         context = super(Topic_DetailView, self).get_context_data(**kwargs)

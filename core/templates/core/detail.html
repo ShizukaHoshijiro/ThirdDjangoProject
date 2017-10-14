@@ -10,7 +10,7 @@
     <h3>{{ object.pub_date }}</h3>
     <br>
 
-     <form action="{% url "comment:add_comment" %}" method="post">
+     <form action="{% url "comment_app:add_comment" %}" method="post">
         <input name="object_id" type="hidden" value="{{ object.id }}">
         <input name="model_name" type="hidden" value="topic"> {# Имя модели в НИЖНЕМ! регистре. #}
         <input name="next" type="hidden" value="{{ request.path }}">
@@ -23,9 +23,9 @@
 
     {% for comment in object.comments.all %}
         <div class="comment">
-        {{ request.user }}
+
         <h3>{{ comment.content }}</h3>
-        {{ comment.pub_date }}
+        {{ comment.author }} -- {{ comment.pub_date }}
         </div>
         <br>
     {% endfor %}
