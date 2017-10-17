@@ -1,3 +1,5 @@
 from django.contrib import admin
+from comment_app.models import Comment
 
-# Register your models here.
+# Регистрирует модель Topic для администативного сайта по умолчанию.
+admin.site.register(Comment)
