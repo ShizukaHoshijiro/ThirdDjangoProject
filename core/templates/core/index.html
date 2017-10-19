@@ -3,9 +3,11 @@
 
 {% block title %}Главная{% endblock %}
 {% block extra_head %}<link type="text/css" rel="stylesheet" href="{% static "core/index.css" %}">{% endblock %}
-{% block header %}{% include "core/patterns/includes/header_with_field.html" %}{% endblock %}
+{% block header %}{% include "core/patterns/includes/header.html" %}{% endblock %}
 
 {% block content %}
+
+    <h1>Популярные вопросы</h1>
 
     {% for object in object_list %}
 

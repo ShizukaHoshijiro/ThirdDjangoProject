@@ -31,6 +31,10 @@ a:hover {
     line-height: 40px;
 }
 
+.header .links a {
+    margin-right: 6px;
+}
+
 .header .user_info {
     height:100%;
     width:auto;

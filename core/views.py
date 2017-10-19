@@ -12,18 +12,24 @@ from django.http import Http404
 # from core.forms import CommentForm
 from django.contrib.auth.decorators import login_required
 from comment_app.forms import CommentForm
+from django.db.models import Count
 
 class IndexView(ListView):
     model = Topic
     template_name = "core/index.html"
 
+
+class TopicsListView(ListView):
+    model = Topic
+    template_name = "core/list.html"
+
     def dispatch(self, request, *args, **kwargs):
         self.form = IndexPageForm(request.GET)
+        # Search_form
         self.form.is_valid()
-        return super(IndexView, self).dispatch(request,*args,**kwargs)
+        return super(TopicsListView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-
         sort_field = self.form.cleaned_data.get("sort_field","-pub_date")
         search_field = self.form.cleaned_data.get("search_field",None)
         # метод get возвращает чначение с указанным ключём или второй аргумент если он равен None
@@ -39,40 +45,44 @@ class IndexView(ListView):
             self.queryset = Topic.objects.order_by(sort_field)
         return self.queryset[0:40]
 
+
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super(TopicsListView, self).get_context_data(**kwargs)
         context["form"] = self.form
         return context
 
-class Topic_DetailView(DetailView):
+
+class TopicDetailView(DetailView):
     model = Topic
     template_name = "core/detail.html"
     # pk_url_kwarg = "topic_id" ---deleted
     # Определяет под каким именем будет извлечён индетификатор объекта, из regex или GET запроса.
     def get(self, request, *args, **kwargs):
         self.form = CommentForm
-        return super(Topic_DetailView, self).get(request,*args,**kwargs)
+        return super(TopicDetailView, self).get(request,*args,**kwargs)
     def get_context_data(self, **kwargs):
-        context = super(Topic_DetailView, self).get_context_data(**kwargs)
+        context = super(TopicDetailView, self).get_context_data(**kwargs)
         context["form"] = self.form
         return context
 
-class Topic_CreateView(CreateView):
+
+class TopicCreateView(CreateView):
     model = Topic
     template_name = "core/create.html"
     fields = ("title","description")
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super(Topic_CreateView, self).form_valid(form)
+        return super(TopicCreateView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return super(Topic_CreateView, self).post(request, *args,**kwargs)
+            return super(TopicCreateView, self).post(request, *args,**kwargs)
         else:
             redirect_url = reverse("login")
             redirect_url = redirect_url + "?next=" + request.path
             return redirect(redirect_url)
+
 
 class UserRegisterView(FormView):
     form_class = UserCreationForm

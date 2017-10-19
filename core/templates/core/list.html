@@ -1,0 +1,18 @@
+{% extends "core/patterns/parents/main.html" %}
+{% load static %}
+
+{% block title %}List{% endblock %}
+{% block extra_head %}
+    <link href="{% static "core/list.css" %}" type="text/css" rel="stylesheet">
+    <link href="{% static "core/index.css" %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block header %}{% include "core/patterns/includes/header_with_field.html" %}{% endblock %}
+
+{% block content %}
+
+    {% for object in object_list %}
+        <a href="{% url "core:detail" object.id %}" id="{{ object.id }}"><div class="topic"> {{ object.title }} </div></a>
+    {% endfor %}
+
+{% endblock %}
