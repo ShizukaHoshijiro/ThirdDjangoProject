@@ -19,10 +19,10 @@
 
     <div class="main">
     {% block main_body %}
-        <div class="header"> {% block header %}{% include "core/patterns/includes/header.html" %}{% endblock %} </div>
+        <div class="header container-fluid"> {% block header %}{% include "core/patterns/includes/header.html" %}{% endblock %} </div>
         {#  <div class="right_side_bar">{% block right_side_bar %}{% include "core/patterns/includes/right_side_bar.html" %}{% endblock %}</div>  #}
-        <div class="content"> {% block content %}{% endblock %} </div>
-        <div class="footer"> {% block footer %}{% include "core/patterns/includes/footer.html" %}{% endblock %} </div>
+        <div class="content container-fluid"> {% block content %}{% endblock %} </div>
+        <div class="footer container-fluid"> {% block footer %}{% include "core/patterns/includes/footer.html" %}{% endblock %} </div>
     {% endblock %}
     </div>
 
