@@ -12,7 +12,7 @@ from django.http import Http404
 # from core.forms import CommentForm
 from django.contrib.auth.decorators import login_required
 from comment_app.forms import CommentForm
-from django.db.models import Count
+from django.db.models import Q
 
 class IndexView(ListView):
     model = Topic
@@ -40,7 +40,7 @@ class TopicsListView(ListView):
             search_field = None
 
         if search_field is not None:
-            self.queryset = Topic.objects.order_by(sort_field).filter(title__icontains=search_field)
+            self.queryset = Topic.objects.order_by(sort_field).filter(Q(title__icontains=search_field)|Q(description__icontains=search_field))
         else:
             self.queryset = Topic.objects.order_by(sort_field)
         return self.queryset[0:40]

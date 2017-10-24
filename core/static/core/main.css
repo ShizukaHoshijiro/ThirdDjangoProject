@@ -20,3 +20,14 @@
     height: 22px;
 }
 
+.search-col {
+    margin-left:2vw;
+}
+
+.sort_field {
+    width:10px;
+}
+
+h5 {
+    font-size: 1.05rem;
+}

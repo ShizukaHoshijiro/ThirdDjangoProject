@@ -1,15 +1,25 @@
 {% extends "core/patterns/includes/header.html" %}
+{% load widget_tweaks %}
 
 {% block search_field %}
-    <div class="row header_row_2">
-        <div class="search_field col-auto form-inline my-2 my-lg-0">
-        <form action="">
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" value="Принять">
-        </form>
-
-        </div>
+    <div class="row header_row_2 align-items-center">
+            <div class="col-auto search-col">
+                <form action="" class="input-group-sm form-inline">
+                    {% render_field form.search_field class="form-control" placeholder="Search for..." %}
+                    {% render_field form.sort_field class="form-control sort_field" %}
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-secondary" value="Go!">
+                    </span>
+                    </form>
+            </div>
     </div>
 {% endblock %}
+
+
+
+<div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button">Go!</button>
+      </span>
+      <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+    </div>

@@ -1,0 +1,16 @@
+.reg_form_field {
+    margin-top: 5px;
+}
+
+.reg_button {
+    margin-top: 6px;
+    display: flex;
+    justify-content: center;
+}
+
+.registration_form {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+}
