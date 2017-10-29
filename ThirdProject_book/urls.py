@@ -26,4 +26,5 @@ urlpatterns = [
     url(r"^logout/$", logout, {"template_name":"core/logout.html"}, name="logout"),
     url(r"^register/$", UserRegisterView.as_view(), name="register"),
     url(r"^comments/", include("comment_app.urls")),
+    url(r"^rating/", include("rating_app.urls")),
 ]

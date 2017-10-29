@@ -11,7 +11,7 @@ class Comment(models.Model):
     update_date = models.DateTimeField(auto_now=True)
 
     model_type = models.ForeignKey(ContentType)
-    # имя/тип модели, в таблице ContentTypes
+    # имя/тип модели, в таблице ContentTypes # Связь с экземпляром ContentType'a
     object_id = models.PositiveIntegerField()
     # id объекта
     object = GenericForeignKey("model_type","object_id")

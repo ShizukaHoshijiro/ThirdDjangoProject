@@ -25,19 +25,17 @@ def add_comment(request):
     app_label = request.POST.get("app_label", "core")
 
     if model_name and object_id and comment_content:
+
         # Получает экземпляр ContentType для текущей модели
         content_type_for_model = ContentType.objects.get(app_label=app_label,model=model_name)
         # app_label - название/имя приложения; model - имя модели.
         # Для большей информации - https://djbook.ru/rel1.9/ref/contrib/contenttypes.html
 
+        this_object = content_type_for_model.get_object_for_this_type(id=object_id)
         # Получаем текущий объект,
         # get_object_for_this_type - аналог get(), получает объект из выборки всех объектов модели предстовляемой данным экземпляром ContentType
         # Пздц всё сложно.
-        this_object = content_type_for_model.get_object_for_this_type(id=object_id)
-        # Нерабочая "версия", хз зачем я её оставил.
-        # model = ContentType.get_object_for_this_type(content_type_for_model)
-        # Возможно, лишняя промежуточная переменная, можно заменить на ContentType.objects.get_for_id()
-        # object_set_for_this_model = ContentType.objects.get_for_model(model)
+
         new_comment = Comment()
         new_comment.content = comment_content
         new_comment.author = request.user

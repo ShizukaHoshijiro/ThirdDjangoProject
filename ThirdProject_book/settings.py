@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "rating_app",
     'widget_tweaks',
     "comment_app",
     'core',

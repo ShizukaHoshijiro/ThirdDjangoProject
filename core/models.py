@@ -4,6 +4,7 @@ from django.db.models import PROTECT,CASCADE
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
 from comment_app.models import Comment
+from rating_app.models import Like
 
 
 
@@ -20,6 +21,7 @@ class Topic(models.Model):
     # Позволяет обращатся к списку привязаных Comment'ов через comments
     # content_type_field="model_type" - имя поля, видимо
     comments = GenericRelation(Comment, related_query_name="comments", content_type_field="model_type")
+    likes = GenericRelation(Like,related_query_name="likes", content_type_field="model_type")
 
     # Возвращает заголовок как текстовое преобразование/представление.
     def __str__(self):
