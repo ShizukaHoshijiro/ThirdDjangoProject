@@ -10,6 +10,7 @@ from core.forms import IndexPageForm
 from django.contrib.contenttypes.models import ContentType,ContentTypeManager
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def add_like(request):
@@ -20,18 +21,32 @@ def add_like(request):
 
     if model_name and object_id:
 
-        content_type_for_model = ContentType.objects.get(app_label=app_label, model=model_name)  # Экземпляр ContentType'a для данной модели
+        content_type_for_model = ContentType.objects.get(app_label=app_label, model=model_name)
+        # Экземпляр ContentType'a для данной модели
         this_object = content_type_for_model.get_object_for_this_type(id=object_id)
+        # Получаем текущий объект,
+        # get_object_for_this_type - аналог get(),
+        # получает объект из выборки всех объектов модели предстовляемой данным экземпляром ContentType
 
-        if Like.object.get(user=request.user, object=this_object):
-            Like.object.get(user=request.user, object=this_object).delete()
+        try:
+            Like.objects.get(user=request.user, model_type=content_type_for_model, object_id=object_id)
+        # Проверяем на исключение "DoesNotExist", потомок "ObjectDoesNotExist",
+        # вызываемое в случае если юзер ещё не ставил лайк, т.е.  get(...) возвращает исключение.
 
-        else:
+        except ObjectDoesNotExist:
             new_like = Like()
             new_like.user = request.user
             new_like.object = this_object
             new_like.save()
+        # Создаём новый лайк если его ешё нет.
+
+        else:
+            Like.objects.get(user=request.user, model_type=content_type_for_model, object_id=object_id).delete()
+        # Удаляем лайк если он есть.
 
     else:
         raise Http404
-    return HttpResponseRedirect(request.path)
+
+    return HttpResponseRedirect(request.POST.get("next",reverse("core:list")))
+
+    # Оно таки работает, шок
