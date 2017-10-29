@@ -1,16 +1,21 @@
-.reg_form_field {
+.common_form_field {
     margin-top: 5px;
 }
 
-.reg_button {
+.common_button {
     margin-top: 6px;
     display: flex;
     justify-content: center;
 }
 
-.registration_form {
+.common_form_external {
     width: 300px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 70px;
+    margin-top: 50px;
+}
+
+.form-signin-heading {
+    text-align: center;
+    font-size: 2.4rem;
 }

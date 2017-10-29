@@ -1,6 +1,10 @@
 {% extends "core/patterns/parents/main.html" %}
+{% load widget_tweaks %}
+{% load static %}
 
 {% block title %}Новая тема{% endblock %}
+
+{% block extra_head %}<link href="{% static "core/topic_create.css" %}" type="text/css" rel="stylesheet">{% endblock %}
 
 {% block content %}
 
@@ -13,11 +17,15 @@
         </div>
 
     {% else %}
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit">
-        </form>
+        <div class="create_external container-fluid">
+            <form action="" method="post" class=".form-group row">
+                {% csrf_token %}
+
+                <div class="col-12 topic_create_field">{% render_field form.title class=".form-control" placeholder="Title" %}</div>
+                <div class="col-12 topic_create_field">{% render_field form.description class=".form-control" placeholder="Description" %}</div>
+                <div class="col-12 topic_create_btn"><input type="submit" class="btn btn-secondary"></div>
+            </form>
+        </div>
 
     {% endif %}
 

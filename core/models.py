@@ -21,14 +21,14 @@ class Topic(models.Model):
     # content_type_field="model_type" - имя поля, видимо
     comments = GenericRelation(Comment, related_query_name="comments", content_type_field="model_type")
 
-# Возвращает заголовок как текстовое преобразование/представление.
-def __str__(self):
-    return self.title
+    # Возвращает заголовок как текстовое преобразование/представление.
+    def __str__(self):
+        return self.title
 
-def get_absolute_url(self):
-    from django.urls import reverse
-    return reverse("core:detail", kwargs={"pk":str(self.id)})
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("core:detail", kwargs={"pk":str(self.pk)})
 
-class Meta:
-    # Сортировка по умолчанию, по дате("-" в начале означает обратный порядок) и по заголовку.
-    ordering = ("-pub_date","title")
+    class Meta:
+        # Сортировка по умолчанию, по дате("-" в начале означает обратный порядок) и по заголовку.
+        ordering = ("-pub_date","title")
