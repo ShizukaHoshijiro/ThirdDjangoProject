@@ -8,6 +8,7 @@
     <h2>{{ object.description }}</h2>
     <h3>{{ object.author }}</h3>
     <h3>{{ object.pub_date }}</h3>
+    {% include "core/patterns/includes/like_from/like_form_for_topic.html" %}
     <br>
 
      <form action="{% url "comment_app:add_comment" %}" method="post">

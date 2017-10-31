@@ -16,14 +16,9 @@
         <div class="object">
             <h4><a href="{% url "core:detail" object.id %}" id="{{ object.id }}"><div class="topic"> {{ object.title }} </div></a></h4>
             <h5>{{ object.description }}</h5>
-            <form method="post" action="{% url "rating_app:add_like" %}">
-                <input type="hidden" name="model_name" value="topic">
-                <input type="hidden" name="app_label" value="core">
-                <input type="hidden" name="object_id" value="{{ object.id }}">
-                <input type="hidden" name="next" value="{{ request.path }}">
-                {% csrf_token %}
-                <input type="submit" value="{{ object.likes.count }}">
-            </form>
+
+            {% include "core/patterns/includes/like_from/like_form_for_topic.html" %}
+
         </div>
 
     {% endfor %}

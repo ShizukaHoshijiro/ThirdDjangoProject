@@ -13,6 +13,7 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from comment_app.forms import CommentForm
 from django.db.models import Q
+from django.db import models
 
 class IndexView(ListView):
     model = Topic
@@ -30,20 +31,63 @@ class TopicsListView(ListView):
         return super(TopicsListView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
+
+        def search_by(queryset_input, search_field_input):
+            if search_field_input:
+                queryset_input = queryset_input.filter(Q(title__icontains=search_field_input) | Q(description__icontains=search_field_input))
+            return queryset_input
+
+        def sort_by(queryset_input, sort_field_input):
+            if sort_field_input == "pub_date":
+                queryset_input = queryset_input.order_by("-pub_date")
+            elif sort_field_input == "comments_count":
+                queryset_input = queryset_input.annotate(comments_count=models.Count("comments")).order_by("-comments_count")
+            elif sort_field_input == "likes_count":
+                queryset_input = queryset_input.annotate(likes_count=models.Count("likes")).order_by("-likes_count")
+            return queryset_input
+
+        # self.a = Topic.objects.annotate(comments_count=models.Count("comments"))
+        # self.b = Topic.objects.annotate(likes_count=models.Count("likes"))
+        # Примеры агрегирования данных
+
+        self.queryset = Topic.objects.all()
+        # Изначальный queryset, выборка по умолчанию.
+
         sort_field = self.form.cleaned_data.get("sort_field","-pub_date")
         search_field = self.form.cleaned_data.get("search_field",None)
         # метод get возвращает чначение с указанным ключём или второй аргумент если он равен None
 
+        self.queryset = search_by(self.queryset,search_field)
+        self.queryset = sort_by(self.queryset, sort_field)
+
+        return self.queryset[0:40]
+
+
+
+
+
+        """        def search_by(queryset,search_field):
+            if search_field:
+                queryset = queryset.filter(Q(title__icontains=search_field)|Q(description__icontains=search_field))
+            return queryset
+
+        sort_field = self.form.cleaned_data.get("sort_field","-pub_date")
+        search_field = self.form.cleaned_data.get("search_field",None)
+        # метод get возвращает чначение с указанным ключём или второй аргумент если он равен None
+
+        self.a = Topic.objects.annotate(comments_count=models.Count("comments"))
+        self.b = Topic.objects.annotate(like_count=models.Count("likes"))
+        # Примеры агрегирования данных
+
         if sort_field == "":
             sort_field = "-pub_date"
-        if search_field == "":
-            search_field = None
 
-        if search_field is not None:
-            self.queryset = Topic.objects.order_by(sort_field).filter(Q(title__icontains=search_field)|Q(description__icontains=search_field))
-        else:
-            self.queryset = Topic.objects.order_by(sort_field)
+        self.queryset = search_by(self.queryset,search_field)
+        
+
         return self.queryset[0:40]
+"""
+
 
 
     def get_context_data(self, **kwargs):
