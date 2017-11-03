@@ -5,5 +5,5 @@
     <input type="hidden" name="object_id" value="{% block object_id %}{{ object.id }}{% endblock %}">
     <input type="hidden" name="next" value="{% block next %}{{ request.path }}?search_field={{ request.GET.search_field }}&sort_field={{ request.GET.sort_field }}{% endblock %}">
     {% csrf_token %}
-    <input type="submit" class="btn btn-sm btn-default" value="{{ object.likes.count }}">
+    <input type="submit" class="btn btn-sm btn-default" value="{% block number_of_likes %}{{ object.likes.count }}{% endblock %}">
 </form>
