@@ -15,9 +15,15 @@ from comment_app.forms import CommentForm
 from django.db.models import Q
 from django.db import models
 
+
 class IndexView(ListView):
     model = Topic
     template_name = "core/index.html"
+
+    def get_queryset(self):
+        queryset = super(IndexView, self).get_queryset()
+        queryset = queryset.annotate(likes_count = models.Count("likes")).order_by("-likes_count")
+        return queryset
 
 
 class TopicsListView(ListView):
@@ -50,44 +56,17 @@ class TopicsListView(ListView):
         # self.b = Topic.objects.annotate(likes_count=models.Count("likes"))
         # Примеры агрегирования данных
 
-        self.queryset = Topic.objects.all()
+        self.queryset = super(TopicsListView, self).get_queryset()
         # Изначальный queryset, выборка по умолчанию.
 
         sort_field = self.form.cleaned_data.get("sort_field","-pub_date")
         search_field = self.form.cleaned_data.get("search_field",None)
         # метод get возвращает чначение с указанным ключём или второй аргумент если он равен None
 
-        self.queryset = search_by(self.queryset,search_field)
+        self.queryset = search_by(self.queryset, search_field)
         self.queryset = sort_by(self.queryset, sort_field)
 
         return self.queryset[0:40]
-
-
-
-
-
-        """        def search_by(queryset,search_field):
-            if search_field:
-                queryset = queryset.filter(Q(title__icontains=search_field)|Q(description__icontains=search_field))
-            return queryset
-
-        sort_field = self.form.cleaned_data.get("sort_field","-pub_date")
-        search_field = self.form.cleaned_data.get("search_field",None)
-        # метод get возвращает чначение с указанным ключём или второй аргумент если он равен None
-
-        self.a = Topic.objects.annotate(comments_count=models.Count("comments"))
-        self.b = Topic.objects.annotate(like_count=models.Count("likes"))
-        # Примеры агрегирования данных
-
-        if sort_field == "":
-            sort_field = "-pub_date"
-
-        self.queryset = search_by(self.queryset,search_field)
-        
-
-        return self.queryset[0:40]
-"""
-
 
 
     def get_context_data(self, **kwargs):

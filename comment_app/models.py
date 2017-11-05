@@ -5,6 +5,13 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
 from rating_app.models import Like
 
+
+class CustomCommentsQuerySet(models.QuerySet):
+    def order_by_number_of_likes(self):
+        queryset = self.annotate(likes_count=models.Count("likes")).order_by("-likes_count")
+        return queryset
+
+
 class Comment(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=PROTECT)
     content = models.CharField(max_length=120)
@@ -22,5 +29,9 @@ class Comment(models.Model):
     object = GenericForeignKey("model_type","object_id")
     # "Соеденяет" model_type и object_id для прямого доступа к объекту
 
+    objects = CustomCommentsQuerySet.as_manager()
+    # Custom query set
+
     class Meta:
         ordering = ("-pub_date",)
+

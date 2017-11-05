@@ -11,7 +11,8 @@
 
     {% for object in object_list %}
 
-             <a href="{% url "core:detail" object.id %}" id="{{ object.id }}"><div class="topic"> {{ object.title }} </div></a>
+            <h4><a href="{% url "core:detail" object.id %}" id="{{ object.id }}"><div class="topic"> {{ object.title }} </div></a></h4>
+            Likes:{{ object.likes.count }} Comments:{{ object.comments.count }}
 
     {% endfor %}
 
