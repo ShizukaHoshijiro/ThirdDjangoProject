@@ -2,7 +2,7 @@
 <div class="row align-items-center justify-content-around header_row_1">
     <div class="col-auto links ">
           <a href="{% url "core:index" %}">Главная</a>
-          <a href="{% url "core:list" %}">Список вопросов</a>
+          <a href="{% url "core:list" page=1 %}">Список вопросов</a>
           <a href="{% url "core:create" %}">Создать тему</a>
     </div>
     <div class="col-auto user_info">

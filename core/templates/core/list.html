@@ -11,6 +11,8 @@
 
 {% block content %}
 
+    {% include "core/patterns/includes/pagination_block.html" %}
+
     {% for object in object_list %}
 
         <div class="object">
@@ -22,5 +24,7 @@
         </div>
 
     {% endfor %}
+
+    {% include "core/patterns/includes/pagination_block.html" %}
 
 {% endblock %}

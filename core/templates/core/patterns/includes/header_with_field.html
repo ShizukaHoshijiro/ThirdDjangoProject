@@ -4,7 +4,7 @@
 {% block search_field %}
     <div class="row header_row_2 align-items-center">
             <div class="col-auto search-col">
-                <form action="" class="input-group-sm form-inline">
+                <form action="{% url "core:list" page=1 %}" class="input-group-sm form-inline">
                     {% render_field form.search_field class="form-control" placeholder="Search for..." %}
                     {% render_field form.sort_field class="form-control sort_field" %}
                     <span class="input-group-btn">

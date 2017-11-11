@@ -16,6 +16,7 @@ from django.db.models import Q
 from django.db import models
 
 
+
 class IndexView(ListView):
     model = Topic
     template_name = "core/index.html"
@@ -29,6 +30,8 @@ class IndexView(ListView):
 class TopicsListView(ListView):
     model = Topic
     template_name = "core/list.html"
+    paginate_by = 10    # Пагинация по 20 элементов на страницу.
+    paginate_orphans = 3    # Минимум 3 элемента на последней странице.
 
     def dispatch(self, request, *args, **kwargs):
         self.form = IndexPageForm(request.GET)
@@ -44,8 +47,10 @@ class TopicsListView(ListView):
             return queryset_input
 
         def sort_by(queryset_input, sort_field_input):
-            if sort_field_input == "pub_date":
+            if sort_field_input == "-pub_date":
                 queryset_input = queryset_input.order_by("-pub_date")
+            if sort_field_input == "pub_date":
+                queryset_input = queryset_input.order_by("pub_date")
             elif sort_field_input == "comments_count":
                 queryset_input = queryset_input.annotate(comments_count=models.Count("comments")).order_by("-comments_count")
             elif sort_field_input == "likes_count":
@@ -66,7 +71,7 @@ class TopicsListView(ListView):
         self.queryset = search_by(self.queryset, search_field)
         self.queryset = sort_by(self.queryset, sort_field)
 
-        return self.queryset[0:40]
+        return self.queryset
 
 
     def get_context_data(self, **kwargs):

@@ -5,7 +5,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
 from comment_app.models import Comment
 from rating_app.models import Like
-
+from django.contrib.auth.models import User
+User.objects.get(id=1)
 
 
 class Topic(models.Model):
