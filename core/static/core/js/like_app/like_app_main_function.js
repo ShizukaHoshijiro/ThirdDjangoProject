@@ -44,7 +44,7 @@ function  addEventListenTo(target_selecter,request_body) {
             rating_xhr.setRequestHeader("Content-Type", "application/json");
             rating_xhr.send(request_body_json);
 
-            // Обработка успеха и ошибки.
+            // Обработка успеха и ошибок.
             rating_xhr.onload = function () {
                 if (this.status === 200) {
                     var response_data = JSON.parse(this.responseText);
@@ -52,7 +52,7 @@ function  addEventListenTo(target_selecter,request_body) {
                     target.value = response_data.likes;
                 }
                 else {
-                 alert("Status not a 200, it is "+this.status)
+                   alert("Status not a 200, it is "+this.status)
                 }
             };
 

@@ -17,6 +17,7 @@
     {% include "core/patterns/includes/like_from/like_form_for_topic.html" %}
     <br>
 
+    {% if user.is_authenticated %}
      <form action="{% url "comment_app:add_comment" %}" method="post">
         <input name="object_id" type="hidden" value="{{ object.id }}">
         <input name="model_name" type="hidden" value="topic"> {# Имя модели в НИЖНЕМ! регистре. #}
@@ -27,6 +28,7 @@
         <input type="submit">
         {% csrf_token %}
     </form>
+    {% endif %}
 
     {% for comment in object.comments.all.order_by_number_of_likes %}
         <br>
