@@ -4,7 +4,9 @@
 {% block title %}List{% endblock %}
 {% block extra_head %}
     <link href="{% static "core/list.css" %}" type="text/css" rel="stylesheet">
-    <script defer src="{% static "core/js/like_app_ajax.js" %}"></script>
+    <script defer src="{% static "core/js/like_app/like_app_ajax.js" %}"></script>
+    <script defer src="{% static "core/js/like_app/params/main_params.js" %}"></script>
+    <script defer src="{% static "core/js/like_app/params/params_for_topic.js" %}"></script>
 {% endblock %}
 
 {% block header %}{% include "core/patterns/includes/header_with_field.html" %}{% endblock %}
