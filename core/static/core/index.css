@@ -1,0 +1,15 @@
+
+
+.object {
+    margin-top: 16px;
+}
+
+    .object .likes {
+        color: #ed6e7f;
+        font-size: 110%;
+    }
+
+    .object h4 {
+        font-size: 160%;
+        font-weight: bold;
+    }

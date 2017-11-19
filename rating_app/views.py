@@ -12,6 +12,7 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 
+
 @login_required
 def add_like(request):
 
@@ -19,8 +20,8 @@ def add_like(request):
     object_id = request.POST.get("object_id", None)
     app_label = request.POST.get("app_label", "core")
 
-    if model_name and object_id:
 
+    if model_name and object_id:
         content_type_for_model = ContentType.objects.get(app_label=app_label, model=model_name)
         # Экземпляр ContentType'a для данной модели
         this_object = content_type_for_model.get_object_for_this_type(id=object_id)
@@ -46,7 +47,5 @@ def add_like(request):
 
     else:
         raise Http404
-
-    return HttpResponseRedirect(request.POST.get("next",reverse("core:list")))
 
     # Оно таки работает, шок

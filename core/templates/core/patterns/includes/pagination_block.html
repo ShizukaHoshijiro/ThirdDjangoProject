@@ -1,16 +1,20 @@
     
     {% if is_paginated %}
-      <ul class="pagination">
+      <div class="pagination">
 
         {% if page_obj.has_previous %}
           <li><a href="{% url "core:list" page=page_obj.previous_page_number %}?search_field={{ request.GET.search_field }}&sort_field={{ request.GET.sort_field }}">{{ page_obj.previous_page_number }}</a></li>
+        {% else %}
+            <li>-</li>
         {% endif %}
 
         <li class="active"><span>{{ page_obj.number }} <span class="sr-only">(current)</span></span></li>
 
         {% if page_obj.has_next %}
           <li><a href="{% url "core:list" page=page_obj.next_page_number %}?search_field={{ request.GET.search_field }}&sort_field={{ request.GET.sort_field }}">{{ page_obj.next_page_number }}</a></li>
+        {% else %}
+            <li>-</li>
         {% endif %}
 
-      </ul>
+      </div>
     {% endif %}

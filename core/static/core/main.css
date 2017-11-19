@@ -31,3 +31,20 @@
 h5 {
     font-size: 1.05rem;
 }
+
+.pagination {
+    margin-top: 8px;
+    margin-bottom: 10px; /* 2 (-6)*/
+    border-top: solid 1px #ededed;
+    border-bottom: solid 1px #ededed;
+    margin-left: 14px;
+
+}
+
+    .pagination li {
+        margin-right:4px;
+        margin-left:4px;
+    }
+
+
+

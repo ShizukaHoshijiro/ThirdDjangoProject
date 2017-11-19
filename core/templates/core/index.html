@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block title %}Главная{% endblock %}
-{% block extra_head %}<link type="text/css" rel="stylesheet" href="{% static "core/index.css" %}">{% endblock %}
+{% block extra_head %}
+    <link type="text/css" rel="stylesheet" href="{% static "core/index.css" %}">
+    <script defer src="{% static "core/js/like_app_ajax.js" %}"></script>
+{% endblock %}
 
 {% block header %}{% include "core/patterns/includes/header.html" %}{% endblock %}
 {% block content %}
@@ -10,9 +13,10 @@
     <h1>Популярные вопросы</h1>
 
     {% for object in object_list %}
-
+        <div class="object">
             <h4><a href="{% url "core:detail" object.id %}" id="{{ object.id }}"><div class="topic"> {{ object.title }} </div></a></h4>
-            Likes:{{ object.likes.count }} Comments:{{ object.comments.count }}
+            <div class="likes">{{ object.likes.count }}</div>
+        </div>
 
     {% endfor %}
 
