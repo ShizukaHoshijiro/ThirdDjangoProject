@@ -1,7 +1,6 @@
 {% extends "core/patterns/includes/like_from/like_form.html" %}
 
-{% block model_name %}comment{% endblock %}
-{% block app_label %}comment_app{% endblock %}
+{% block extra_class %}like_form_for_comment{% endblock %}
 {% block object_id %}{{ comment.id }}{% endblock %}
 {% block number_of_likes %}{{ comment.likes.count }}{% endblock %}
-{% block next %}{{ request.path }}{% endblock %}
+

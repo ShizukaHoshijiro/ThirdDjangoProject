@@ -1,6 +1,12 @@
 {% extends "core/patterns/parents/main.html" %}
+{% load static %}
 
 {% block title %}{{ object.title }}{% endblock %}
+{% block extra_head %}
+    <script defer src="{% static "core/js/like_app/like_app_main_function.js" %}"></script>
+    <script defer src="{% static "core/js/like_app/calls/call_for_topic.js" %}"></script>
+    <script defer src="{% static "core/js/like_app/calls/call_for_comment.js" %}"></script>
+{% endblock %}
 
 {% block content %}
 
