@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView
 from django.views.generic.edit import FormView
 from .models import Topic
 from django.urls import reverse
@@ -9,8 +9,8 @@ from django.contrib.auth import authenticate,login
 from core.forms import IndexPageForm
 from django.contrib.contenttypes.models import ContentType,ContentTypeManager
 from django.http import Http404
-# from core.forms import CommentForm
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from comment_app.forms import CommentForm
 from django.db.models import Q
 from django.db import models
@@ -30,7 +30,7 @@ class IndexView(ListView):
 class TopicsListView(ListView):
     model = Topic
     template_name = "core/list.html"
-    paginate_by = 10    # Пагинация по 20 элементов на страницу.
+    paginate_by = 10    # Пагинация по 10 элементов на страницу.
     paginate_orphans = 3    # Минимум 3 элемента на последней странице.
 
     def dispatch(self, request, *args, **kwargs):
@@ -103,13 +103,18 @@ class TopicCreateView(CreateView):
         form.instance.author = self.request.user
         return super(TopicCreateView, self).form_valid(form)
 
-    def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super(TopicCreateView, self).post(request, *args,**kwargs)
-        else:
-            redirect_url = reverse("login")
-            redirect_url = redirect_url + "?next=" + request.path
-            return redirect(redirect_url)
+    @method_decorator(login_required()) # Декорируем метод, method_decorator обязателен.
+    def dispatch(self, request, *args, **kwargs):
+        return super(TopicCreateView, self).dispatch(request, *args, **kwargs)
+
+    # Вместо данной логики используется "method_decorator", декоратор.
+    # def post(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return super(TopicCreateView, self).post(request, *args,**kwargs)
+    #     else:
+    #         redirect_url = reverse("login")
+    #         redirect_url = redirect_url + "?next=" + request.path
+    #         return redirect(redirect_url)
 
 
 class UserRegisterView(FormView):

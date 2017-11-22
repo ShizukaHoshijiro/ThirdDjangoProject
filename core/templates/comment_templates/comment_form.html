@@ -1,0 +1,4 @@
+    <form class="alert_comment_form" method="post" action="{% url "comment_app:edit_comment" %}">
+        <input type="text" required maxlength="80" placeholder="content" value="{{ content }}">
+        <input type="submit">
+    </form>

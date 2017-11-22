@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.views.generic.edit import FormView
 from comment_app.models import Comment
 from django.urls import reverse
@@ -11,6 +11,7 @@ from django.contrib.contenttypes.models import ContentType,ContentTypeManager
 from django.http import Http404
 from .forms import CommentForm
 from django.contrib.auth.decorators import login_required
+import json
 
 
 @login_required
@@ -46,3 +47,43 @@ def add_comment(request):
         raise Http404
 
     return HttpResponseRedirect(request.POST.get("next","/"))
+
+class UpdateCommentView(UpdateView):
+    model = Comment
+    fields = ("content")
+
+    def get(self, request, *args, **kwargs):
+
+        comment_id = request.GET.get("id",None)
+        app_label = request.GET.get("app_label",None)
+        model_name = request.GET.get("model_name",None)
+
+        content_type_for_model = ContentType.objects.get(app_label=app_label, model=model_name)
+        # app_label - название/имя приложения; model - имя модели.
+        # Для большей информации - https://djbook.ru/rel1.9/ref/contrib/contenttypes.html
+
+        this_object = content_type_for_model.get_object_for_this_type(id=comment_id)
+        form_content = this_object.content
+        context = {"content": form_content}
+
+        return render(request,"comment_templates/comment_form.html",context)
+
+
+
+"""
+@login_required
+def edit_comment(request):
+    this_comment = Comment.objects.get(pk=request.POST.get("id",None))
+    comment_content = request.POST.get("comment_content",None)
+
+    if not this_comment.author is request.user:
+        return HttpResponseBadRequest
+    if not this_comment and not comment_content:
+        return HttpResponseBadRequest
+
+    this_comment.content = comment_content
+    this_comment.save()
+
+    return JsonResponse(dict(this_comment))
+"""
+

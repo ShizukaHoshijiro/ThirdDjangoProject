@@ -6,6 +6,7 @@
     <script defer src="{% static "core/js/like_app/like_app_main_function.js" %}"></script>
     <script defer src="{% static "core/js/like_app/calls/call_for_topic.js" %}"></script>
     <script defer src="{% static "core/js/like_app/calls/call_for_comment.js" %}"></script>
+    <script defer src="{% static "core/js/comment_app/comment_app_main_function.js" %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -34,7 +35,11 @@
         <br>
         <div class="comment">
         {{ comment.author }}
-        <h3>{{ comment.content }}</h3>
+        <h3 class="comment_content">{{ comment.content }}</h3>
+        <input class="comment_id" type="hidden" name="comment_id" value="{{ comment.id }}">
+
+                <input type="submit" class="btn btn-sm btn-default comment_edit_button" value="Edit">
+
         {{ comment.pub_date }}
         </div>
         {% include "core/patterns/includes/like_from/like_form_for_comment.html" %}

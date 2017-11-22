@@ -5,19 +5,18 @@
     like_app_main_function.js - объявляет функциюю добавляющую обработчик для кнопок лайков.
     Параметры:
         target_selecter - CSS селектор кнопки для определённого класса объектов(комментарии, темы).
-        request_body - Тело POST запроса, рендерится в JSON, содержит имя модели, имя приложения.
+        request_body - Тело POST запроса, рендерится в JSON, содержит имя модели, имя приложения, id объекта.
     Использование:
-        В начале добавляем like_app_main_function.js(тем самым объявляем addEventListenTo()),
-        после добавляем другие скрипы вызывающие addEventListenTo() с нужными параметрами.
+        В начале добавляем в документ like_app_main_function.js(тем самым объявляем addEventListenTo()),
+        после, добавляем другие скрипы вызывающие addEventListenTo() с нужными параметрами.
         В данном проекте это скрипты лежащие в calls/...
 
  */
 
 
-var DOMAIN = "http://127.0.0.1:8000/"; // Must be change if will be new.
+(function(){ // Обёртка в анонимную функцию чтобы не захламлять глобальное окружение.
 
-
-function  addEventListenTo(target_selecter,request_body) {
+function addEventListenTo(target_selecter,request_body) {
 
     function like_event(event){
         var target = event.target;
@@ -29,7 +28,7 @@ function  addEventListenTo(target_selecter,request_body) {
         }
 
         else {
-            event.stopPropagation(); // Останавливаем всплытие если это то что на нужно.
+            // event.stopPropagation(); // Останавливаем всплытие если нужно.
             var obj_id = target.parentNode.querySelector("[name=object_id]").value;
             var csrf_token = target.parentNode.querySelector("[name=csrfmiddlewaretoken]").value;
 
@@ -48,7 +47,6 @@ function  addEventListenTo(target_selecter,request_body) {
             rating_xhr.onload = function () {
                 if (this.status === 200) {
                     var response_data = JSON.parse(this.responseText);
-                    // this.responseText - сырой текст ответа
                     target.value = response_data.likes;
                 }
                 else {
@@ -64,3 +62,7 @@ function  addEventListenTo(target_selecter,request_body) {
 
     document.addEventListener("click",like_event);
 }
+
+window.addEventListenTo = addEventListenTo; // export "addEventListenTo" in global environment
+
+}());
