@@ -1,7 +1,44 @@
 
 var DOMAIN = "http://127.0.0.1:8000/"; // Must be change if will be new.
 
+var url_config = {
+    "comment_app:edit_comment":"comments/edit/",
+    "rating_app:add_like":"rating/add/"
+};
 
+
+// Message class --- START ---
+function Message(innerHTML){
+    this.innerHTML = innerHTML;
+    this.outer_class_name = "alert_message_outer"
+}
+
+Message.prototype.alert = function () {
+    message = document.createElement("div");
+    message.className = this.outer_class_name;
+    message.innerHTML = this.innerHTML;
+    document.body.appendChild(message)
+};
+Message.prototype.close = function () {
+    document.body.removeChild(document.querySelector(this.outer_class_name))
+};
+// Message class --- END ---
+
+
+
+
+/*
+
+    message_body =
+
+        "    <form class=\"alert_message_inner\" method=\"post\" action=\"" + url_config["comment_app:edit_comment"] + "\">\n" +
+        "        <input type=\"text\" required maxlength=\"80\" placeholder=\"content\" value=\"" + + "\">\n" +
+        "        <input type=\"submit\">\n" +
+        "    </form>\n" +
+
+    // Да, это пиздец.
+
+ */
 
 
 /* Some shit

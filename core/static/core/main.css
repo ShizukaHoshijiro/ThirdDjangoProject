@@ -46,7 +46,7 @@ h5 {
         margin-left:4px;
     }
 
-.alert_comment_form {
+.alert_message_inner {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10%;
@@ -55,7 +55,7 @@ h5 {
     width: 260px;
     border-radius: 4px;
 }
-.alert_comment_form_outer {
+.alert_message_outer {
 
     position: fixed;
     top: 0;

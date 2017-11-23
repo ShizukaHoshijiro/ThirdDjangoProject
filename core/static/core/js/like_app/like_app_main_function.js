@@ -35,7 +35,7 @@ function addEventListenTo(target_selecter,request_body) {
             request_body.object_id = obj_id; // Добаляем object_id к request_body_upd.
             var request_body_json = JSON.stringify(request_body); // Преобразуем в JSON
 
-            var adress = DOMAIN + "rating/add/";
+            var adress = DOMAIN + url_config["rating_app:add_like"];
 
             var rating_xhr = new XMLHttpRequest();
             rating_xhr.open("POST", adress);
