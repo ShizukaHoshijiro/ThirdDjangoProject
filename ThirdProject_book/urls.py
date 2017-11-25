@@ -20,11 +20,12 @@ from django.contrib.auth.views import login,logout
 from core.views import UserRegisterView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r"^", include("core.urls")),
+    url(r'^admin/', admin.site.urls),
     url(r"^login/$", login, {"template_name":"core/login.html"}, name="login"),
     url(r"^logout/$", logout, {"template_name":"core/logout.html"}, name="logout"),
     url(r"^register/$", UserRegisterView.as_view(), name="register"),
     url(r"^comments/", include("comment_app.urls")),
     url(r"^rating/", include("rating_app.urls")),
+    url(r"^rest/", include("quickstart.urls"))
 ]
