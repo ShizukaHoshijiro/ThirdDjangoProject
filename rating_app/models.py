@@ -6,7 +6,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
 
 class Like(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="likes", on_delete=PROTECT)
 
     model_type = models.ForeignKey(ContentType)    # Связь с экземпляром ContentType'a
     object_id = models.PositiveIntegerField()

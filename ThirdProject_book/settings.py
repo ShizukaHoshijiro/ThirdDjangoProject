@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "rest-api",
     "rating_app",
     'widget_tweaks',
     "comment_app",
@@ -134,6 +135,5 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = "/media/"
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAdminUser",],
-    "PAGE_SIZE":10
+    "PAGE_SIZE": 10
 }

@@ -13,7 +13,7 @@ class Topic(models.Model):
     title = models.CharField(max_length=40)
     description = models.TextField()
     # settings.AUTH_USER_MODEL - текущий пользователь
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=PROTECT)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="topics", on_delete=PROTECT)
     # auto_now_add - Автоматически добавляет значение при создании(не при изменении).
     # auto_now - Автоматически добавляет/изменяет значение при создании/обновлении объекта.
     pub_date = models.DateTimeField(auto_now_add=True)
@@ -21,8 +21,8 @@ class Topic(models.Model):
 
     # Позволяет обращатся к списку привязаных Comment'ов через comments
     # content_type_field="model_type" - имя поля, видимо
-    comments = GenericRelation(Comment, related_query_name="comments", content_type_field="model_type")
-    likes = GenericRelation(Like,related_query_name="likes", content_type_field="model_type")
+    comments = GenericRelation(Comment, related_query_name="topic", content_type_field="model_type")
+    likes = GenericRelation(Like, related_query_name="topic", content_type_field="model_type")
 
     # Возвращает заголовок как текстовое преобразование/представление.
     def __str__(self):

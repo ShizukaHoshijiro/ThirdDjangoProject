@@ -27,5 +27,5 @@ urlpatterns = [
     url(r"^register/$", UserRegisterView.as_view(), name="register"),
     url(r"^comments/", include("comment_app.urls")),
     url(r"^rating/", include("rating_app.urls")),
-    url(r"^rest/", include("quickstart.urls"))
+    url(r"^rest/", include("rest-api.urls"))
 ]

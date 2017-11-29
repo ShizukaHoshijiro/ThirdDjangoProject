@@ -61,6 +61,7 @@ function comment_event(event) {
         "                <input type='hidden' name='csrfmiddlewaretoken' value='" + csrf_token + "'>" +
         "                <input type='hidden' name='next' value='" + window.location + "'>" +
         "           </form>";
+    // NotLikeThis
 
 
     var message = new Message(message_body);
