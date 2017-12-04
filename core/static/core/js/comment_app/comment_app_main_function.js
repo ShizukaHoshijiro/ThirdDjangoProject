@@ -67,7 +67,7 @@ function comment_event(event) {
     var message = new Message(message_body);
     message.alert();
 
-    // Внизу функция для отправки формы средством AJAX, в данный момент не используется, отправка формы обновляет стаинцу.
+    // Внизу функция для отправки формы средством AJAX, в данный момент не используется, отправка формы обновляет страницу.
     /*
     document.addEventListener("click",post_xhr_func);
 

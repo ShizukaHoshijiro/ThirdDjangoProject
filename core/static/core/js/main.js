@@ -19,6 +19,7 @@ Message.prototype.alert = function () {
     message.innerHTML = this.innerHTML;
     document.body.appendChild(message)
 };
+
 Message.prototype.close = function () {
     document.body.removeChild(document.querySelector(this.outer_class_name))
 };

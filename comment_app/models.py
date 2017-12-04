@@ -8,7 +8,7 @@ from rating_app.models import Like
 
 class CustomCommentsQuerySet(models.QuerySet):
     def order_by_number_of_likes(self):
-        queryset = self.annotate(likes_count=models.Count("likes")).order_by("-likes_count")
+        queryset = self.annotate(likes_count=models.Count("likes")).order_by("-likes_count","-pub_date")
         return queryset
 
 

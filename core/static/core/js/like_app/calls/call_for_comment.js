@@ -5,6 +5,6 @@ var request_body_for_comment = {
   "app_label":"comment_app"
 };
 
-target_selecter_for_comment = ".like_form_for_comment .btn";
+target_selector_for_comment = ".like_form_for_comment .btn";
 
-addEventListenTo(target_selecter_for_comment,request_body_for_comment);
+addEventListenTo(target_selector_for_comment,request_body_for_comment);

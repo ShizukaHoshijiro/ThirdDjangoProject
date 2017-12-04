@@ -5,6 +5,6 @@ var request_body_for_topic = {
   "app_label":"core"
 };
 
-target_selecter_for_topic = ".like_form_for_topic .btn";
+target_selector_for_topic = ".like_form_for_topic .btn";
 
-addEventListenTo(target_selecter_for_topic,request_body_for_topic);
+addEventListenTo(target_selector_for_topic,request_body_for_topic);

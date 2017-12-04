@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from .serializers import TopicSerializer, UserSerializer
 from core.models import Topic
 from rest_framework import permissions
-from .permissions import AuthorOrReadOnly
+from .permissions import AuthorOrReadOnly, ThisUserOrReadOnly
 
 
 class TopicViewSet(viewsets.ModelViewSet):
@@ -19,4 +19,5 @@ class TopicViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAdminUser, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, ThisUserOrReadOnly)
+    # permissions.IsAuthenticatedOrReadOnly обязателен т.к. без него анонимный пользователь может создавать объекты.

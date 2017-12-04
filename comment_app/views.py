@@ -49,14 +49,14 @@ def add_comment(request):
 
     return HttpResponseRedirect(request.POST.get("next","/"))
 
-@method_decorator(login_required,name="dispatch")
+@method_decorator(login_required, name="dispatch")
 class UpdateCommentView(UpdateView):
     model = Comment
     fields = ("content",)
 
     def post(self, request, *args, **kwargs):
-        comment_post_id = request.POST.get("comment_id",None)
-        comment_post_content = request.POST.get("comment_content",None)
+        comment_post_id = request.POST.get("comment_id", None)
+        comment_post_content = request.POST.get("comment_content", None)
         next = request.POST.get("next","/")
         comment_obj = Comment.objects.get(id=comment_post_id)
         comment_author = comment_obj.author

@@ -4,7 +4,7 @@
     Documentations/Документация
     like_app_main_function.js - объявляет функциюю добавляющую обработчик для кнопок лайков.
     Параметры:
-        target_selecter - CSS селектор кнопки для определённого класса объектов(комментарии, темы).
+        target_selector - CSS селектор кнопки для определённого класса объектов(комментарии, темы).
         request_body - Тело POST запроса, рендерится в JSON, содержит имя модели, имя приложения, id объекта.
     Использование:
         В начале добавляем в документ like_app_main_function.js(тем самым объявляем addEventListenTo()),
@@ -16,13 +16,13 @@
 
 (function(){ // Обёртка в анонимную функцию чтобы не захламлять глобальное окружение.
 
-function addEventListenTo(target_selecter,request_body) {
+function addEventListenTo(target_selector,request_body) {
 
     function like_event(event){
         var target = event.target;
 
-        if (!target.matches(target_selecter)){
-          // Если глобальный обработчик зафиксировал клик не по нужной кнопке(элементу подходящему под target_selecter).
+        if (!target.matches(target_selector)){
+          // Если глобальный обработчик зафиксировал клик не по нужной кнопке(элементу подходящему под target_selector).
           // Тогда возвращаем return, событие не обрабатывается и всплывает дальше
             return
         }
