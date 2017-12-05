@@ -7,4 +7,4 @@ var request_body_for_topic = {
 
 target_selector_for_topic = ".like_form_for_topic .btn";
 
-addEventListenTo(target_selector_for_topic,request_body_for_topic);
+addLikeEventListenTo(target_selector_for_topic,request_body_for_topic);

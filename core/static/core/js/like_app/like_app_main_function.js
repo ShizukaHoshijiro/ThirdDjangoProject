@@ -16,7 +16,7 @@
 
 (function(){ // Обёртка в анонимную функцию чтобы не захламлять глобальное окружение.
 
-function addEventListenTo(target_selector,request_body) {
+function addLikeEventListenTo(target_selector,request_body) {
 
     function like_event(event){
         var target = event.target;
@@ -63,6 +63,6 @@ function addEventListenTo(target_selector,request_body) {
     document.addEventListener("click",like_event);
 }
 
-window.addEventListenTo = addEventListenTo; // export "addEventListenTo" in global environment
+window.addLikeEventListenTo = addLikeEventListenTo; // export "addEventListenTo" in global environment
 
-}());
+}()); // Конец обёртки.

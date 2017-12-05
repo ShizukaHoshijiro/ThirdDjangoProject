@@ -36,6 +36,8 @@ document.addEventListener("click", edit_comment_event);
 
 */
 
+(function(){ // Обёртка в анонимную функцию чтобы не захламлять глобальное окружение.
+
 var comment_button_class = ".comment_edit_button";
 var comment_content_class = ".comment_content";
 var comment_id_class = ".comment_id";
@@ -93,3 +95,5 @@ function comment_event(event) {
 }
 
 document.addEventListener("click",comment_event);
+
+}()); // Конец обёртки.

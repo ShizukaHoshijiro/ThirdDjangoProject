@@ -7,4 +7,4 @@ var request_body_for_comment = {
 
 target_selector_for_comment = ".like_form_for_comment .btn";
 
-addEventListenTo(target_selector_for_comment,request_body_for_comment);
+addLikeEventListenTo(target_selector_for_comment,request_body_for_comment);
