@@ -68,6 +68,11 @@ class UpdateCommentView(UpdateView):
 
         return HttpResponseRedirect(next)
 
+
+
+
+
+
 """
 @login_required
 def edit_comment(request):

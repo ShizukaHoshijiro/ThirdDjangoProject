@@ -23,8 +23,8 @@ class IndexView(ListView):
 
     def get_queryset(self):
         queryset = super(IndexView, self).get_queryset()
-        queryset = queryset.annotate(likes_count = models.Count("likes")).order_by("-likes_count")
-        return queryset
+        queryset = queryset.annotate(likes_count=models.Count("likes")).order_by("-likes_count").filter(likes_count__gt=0)
+        return queryset[0:20]
 
 
 class TopicsListView(ListView):
@@ -133,6 +133,6 @@ class UserRegisterView(FormView):
 
         user = authenticate(username=form.cleaned_data["username"],password=form.cleaned_data["password1"])
         if user is not None:
-            login(self.request,user)
+            login(self.request, user)
 
         return HttpResponseRedirect(self.get_success_url())

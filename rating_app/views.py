@@ -30,7 +30,7 @@ def add_like(request):
     object_id = data['object_id']
     app_label = data['app_label']
 
-    if model_name and object_id:
+    if model_name and object_id and app_label:
         content_type_for_model = ContentType.objects.get(app_label=app_label, model=model_name)
         # Экземпляр ContentType'a для данной модели
         this_object = content_type_for_model.get_object_for_this_type(id=object_id)
